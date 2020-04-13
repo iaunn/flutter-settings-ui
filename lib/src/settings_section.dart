@@ -8,6 +8,7 @@ import 'package:settings_ui/src/settings_tile.dart';
 // ignore: must_be_immutable
 class SettingsSection extends StatelessWidget {
   final String title;
+  final String platform;
   final List<SettingsTile> tiles;
   bool showBottomDivider = false;
 
@@ -15,11 +16,16 @@ class SettingsSection extends StatelessWidget {
     Key key,
     this.tiles,
     this.title,
+    this.platform,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isIOS)
+    if (platform == "IOS") {
+      return iosSection();
+    } else if (platform == "ANDROID") {
+      return androidSection(context);
+    } else if (Platform.isIOS)
       return iosSection();
     else if (Platform.isAndroid)
       return androidSection(context);
